@@ -8,24 +8,47 @@ import "./App.css";
 class App extends Component {
   // Setting this.state.friends to the friends json array
   state = {
-    friends
+    friends,
+    picked: []
   };
 
-  removeFriend = id => {
-    // Filter this.state.friends for friends with an id not equal to the id being removed
-    const friends = this.state.friends.filter(friend => friend.id !== id);
-    // Set this.state.friends equal to the new friends array
-    this.setState({ friends });
+  
+  clickFriend = id => {
+
+    let friendArray = this.state.picked;
+
+    if (friendArray.indexOf(id) >= 0) {
+      alert("Sorry, you lose.");
+
+    } else {
+      friendArray.push(id);
+    }
+  
+
+    this.setState({ picked: friendArray });
+
+    let copyArray = [...friends];
+
+    for (let i = copyArray.length -1; i > 0; i-- ) {
+      const j  = Math.floor(Math.random() * (i + 1) );
+      [copyArray[i], copyArray[j]] = [copyArray[j], copyArray[i]];
+
+    }
+
+      this.setState ({ friends: copyArray });
   };
+
+
+
 
   // Map over this.state.friends and render a FriendCard component for each friend object
   render() {
     return (
       <Wrapper>
-        <Title>Friends List</Title>
+        <Title>CLICKY GAME</Title>
         {this.state.friends.map(friend => (
           <FriendCard
-            removeFriend={this.removeFriend}
+            clickFriend={this.clickFriend}
             id={friend.id}
             key={friend.id}
             name={friend.name}
