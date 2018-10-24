@@ -20,13 +20,21 @@ class App extends Component {
 
     let friendArray = this.state.picked;
 
+    console.log(friendArray);
+
     if (friendArray.indexOf(id) >= 0) {
       alert("Sorry, you lose.");
+
+      this.setState({ picked: [] })
+
+      this.setState(prevState => {
+      return {score: 0 }
+      });
 
     } else {
       friendArray.push(id);
 
-      
+    // console.log(friendArray); 
 
       this.setState(prevState => {
         return {score: prevState.score +1}
@@ -34,7 +42,7 @@ class App extends Component {
     }
   
 
-    this.setState({ picked: friendArray });
+    // this.setState({ friendArray });
 
     let copyArray = [...friends];
 
